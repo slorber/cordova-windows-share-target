@@ -49,3 +49,42 @@ var app = {
 };
 
 app.initialize();
+
+
+function setupShareTarget() {
+    console.debug("setupShareTarget");
+
+    var shareOperation = null;
+    function shareReady(args) {
+        console.debug("shareReady");
+        if (shareOperation.data.contains(Windows.ApplicationModel.DataTransfer.StandardDataFormats.uri)) {
+            console.debug("shareOperation");
+            shareOperation.data.getUriAsync().done(function (uri) {
+                console.debug("getUriAsync");
+            });
+        }
+    }
+
+
+    function activationHandler(args) {
+        console.debug("activationHandler");
+        if (args.detail.kind === Windows.ApplicationModel.Activation.ActivationKind.launch) {
+            console.debug("launch");
+            args.setPromise(WinJS.UI.processAll());
+        }
+        else if (args.detail.kind === Windows.ApplicationModel.Activation.ActivationKind.shareTarget) {
+            console.debug("share target");
+            args.setPromise(WinJS.UI.processAll());
+            shareOperation = args.detail.shareOperation;
+            WinJS.Application.addEventListener("shareready", shareReady, false);
+            WinJS.Application.queueEvent({ type: "shareready" });
+        }
+        else {
+            console.debug("else");
+        }
+    };
+    WinJS.Application.addEventListener("activated", activationHandler, false);
+
+}
+
+setupShareTarget();
