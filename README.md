@@ -29,5 +29,9 @@ The workflow:
 
 
 Note: it seems impossible to catch WinJS activation event after the deviceready event of cordova is fired
-Note: had problems with Windows 10 emulators crashing. I suspect calling shareOperation, or opening my app,fixed the problem.
+
+Note: had problems with Windows 10 emulators crashing. I suspect it's related to memory / debugger (or maybe shareOperation reporting methods?)
+
 Note: useful issue [CB-11924](https://issues.apache.org/jira/browse/CB-11924)
+
+Note: useful issue: [https://github.com/EddyVerbruggen/Custom-URL-scheme/issues/206](https://github.com/EddyVerbruggen/Custom-URL-scheme/issues/206)
